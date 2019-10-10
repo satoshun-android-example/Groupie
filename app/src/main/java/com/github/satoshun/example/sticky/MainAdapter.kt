@@ -29,12 +29,15 @@ class MainAdapter : GroupAdapter<GroupieViewHolder>(),
   }
 
   override fun bindHeaderData(header: View, headerPosition: Int) {
-    HeaderItem.bindHeader(HeaderItemBinding.bind(header), headerPosition)
+    val headerItem = getHeaderItem(headerPosition)
+    headerItem?.bind(HeaderItemBinding.bind(header), headerPosition)
   }
 
   override fun isHeader(itemPosition: Int): Boolean {
     return getItem(itemPosition) is HeaderItem
   }
+
+  private fun getHeaderItem(position: Int): HeaderItem? = getItem(position) as? HeaderItem
 }
 
 class MainItem : BindableItem<MainItemBinding>() {
