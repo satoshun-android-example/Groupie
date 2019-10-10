@@ -1,10 +1,10 @@
 package com.github.satoshun.example.sticky
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.satoshun.example.MainAdapter
 import com.github.satoshun.example.R
 import com.github.satoshun.example.databinding.StickyActBinding
 
@@ -19,7 +19,9 @@ class StickyActivity : AppCompatActivity() {
 
     with(binding.recycler) {
       layoutManager = LinearLayoutManager(this@StickyActivity)
-      adapter = MainAdapter()
+      val mainAdapter = MainAdapter()
+      adapter = mainAdapter
+      addItemDecoration(StickHeaderItemDecoration(mainAdapter))
     }
   }
 }
