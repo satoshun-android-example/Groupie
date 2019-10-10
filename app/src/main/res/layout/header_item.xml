@@ -2,18 +2,23 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
 
-  <LinearLayout
+  <FrameLayout
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:background="@android:color/black"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:padding="16dp">
 
     <TextView
       android:id="@+id/title"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_height="40dp"
+      android:layout_gravity="center"
+      android:background="@android:color/black"
+      android:gravity="center"
+      android:padding="8dp"
+      android:paddingStart="32dp"
+      android:paddingEnd="32dp"
       android:textColor="@android:color/white"
       tools:text="HOGE" />
-  </LinearLayout>
+  </FrameLayout>
 </layout>

@@ -59,10 +59,10 @@ class StickyHeaderItemDecoration(
   private fun getChildInContact(parent: RecyclerView, contactPoint: Int, currentHeaderPos: Int): View? {
     var childInContact: View? = null
     for (i in 0 until parent.childCount) {
-      var heightTolerance = 0
       val child = parent.getChildAt(i)
 
-      //measure height tolerance with child if child is another header
+      var heightTolerance = 0
+      // measure height tolerance with child if child is another header
       if (currentHeaderPos != i) {
         val isChildHeader = listener.isHeader(parent.getChildAdapterPosition(child))
         if (isChildHeader) {
@@ -70,12 +70,11 @@ class StickyHeaderItemDecoration(
         }
       }
 
-      //add heightTolerance if child top be in display area
-      val childBottomPosition: Int
-      if (child.top > 0) {
-        childBottomPosition = child.bottom + heightTolerance
+      // add heightTolerance if child top be in display area
+      val childBottomPosition = if (child.top > 0) {
+        child.bottom + heightTolerance
       } else {
-        childBottomPosition = child.bottom
+        child.bottom
       }
 
       if (childBottomPosition > contactPoint) {
@@ -95,14 +94,13 @@ class StickyHeaderItemDecoration(
    * @param parent ViewGroup: RecyclerView in this case.
    */
   private fun fixLayoutSize(parent: ViewGroup, view: View) {
-
     // Specs for parent (RecyclerView)
     val widthSpec = View.MeasureSpec.makeMeasureSpec(parent.width, View.MeasureSpec.EXACTLY)
     val heightSpec = View.MeasureSpec.makeMeasureSpec(parent.height, View.MeasureSpec.UNSPECIFIED)
 
     // Specs for children (headers)
-    val childWidthSpec = ViewGroup.getChildMeasureSpec(widthSpec, parent.paddingLeft + parent.paddingRight, view.getLayoutParams().width)
-    val childHeightSpec = ViewGroup.getChildMeasureSpec(heightSpec, parent.paddingTop + parent.paddingBottom, view.getLayoutParams().height)
+    val childWidthSpec = ViewGroup.getChildMeasureSpec(widthSpec, parent.paddingLeft + parent.paddingRight, view.layoutParams.width)
+    val childHeightSpec = ViewGroup.getChildMeasureSpec(heightSpec, parent.paddingTop + parent.paddingBottom, view.layoutParams.height)
 
     view.measure(childWidthSpec, childHeightSpec)
 

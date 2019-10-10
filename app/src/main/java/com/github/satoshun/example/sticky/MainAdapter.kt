@@ -1,6 +1,7 @@
 package com.github.satoshun.example.sticky
 
 import android.view.View
+import androidx.core.view.isVisible
 import com.github.satoshun.example.R
 import com.github.satoshun.example.databinding.HeaderItemBinding
 import com.github.satoshun.example.databinding.MainItemBinding
@@ -21,7 +22,7 @@ class MainAdapter : GroupAdapter<GroupieViewHolder>(),
 
   override fun getHeaderPositionForItem(itemPosition: Int): Int =
     (itemPosition downTo 0)
-      .firstOrNull { isHeader(it) } ?: -1
+      .firstOrNull { isHeader2(it) } ?: -1
 
   override fun getHeaderLayout(headerPosition: Int): Int {
     return R.layout.header_item
@@ -33,6 +34,10 @@ class MainAdapter : GroupAdapter<GroupieViewHolder>(),
   }
 
   override fun isHeader(itemPosition: Int): Boolean {
+    return getItem(itemPosition) is HeaderItem
+  }
+
+  private fun isHeader2(itemPosition: Int): Boolean {
     return getItem(itemPosition) is HeaderItem
   }
 
