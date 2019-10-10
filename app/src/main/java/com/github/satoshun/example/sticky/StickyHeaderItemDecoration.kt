@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 // borrow from https://gist.github.com/saber-solooki/edeb57be63d2a60ef551676067c66c71
-class StickHeaderItemDecoration(
+class StickyHeaderItemDecoration(
   private val listener: StickyHeaderInterface
 ) : RecyclerView.ItemDecoration() {
   private var stickyHeaderHeight: Int = 0
@@ -113,7 +113,7 @@ class StickHeaderItemDecoration(
   interface StickyHeaderInterface {
 
     /**
-     * This method gets called by [StickHeaderItemDecoration] to fetch the position of the header item in the adapter
+     * This method gets called by [StickyHeaderItemDecoration] to fetch the position of the header item in the adapter
      * that is used for (represents) item at specified position.
      * @param itemPosition int. Adapter's position of the item for which to do the search of the position of the header item.
      * @return int. Position of the header item in the adapter.
@@ -121,21 +121,21 @@ class StickHeaderItemDecoration(
     fun getHeaderPositionForItem(itemPosition: Int): Int
 
     /**
-     * This method gets called by [StickHeaderItemDecoration] to get layout resource id for the header item at specified adapter's position.
+     * This method gets called by [StickyHeaderItemDecoration] to get layout resource id for the header item at specified adapter's position.
      * @param headerPosition int. Position of the header item in the adapter.
      * @return int. Layout resource id.
      */
     fun getHeaderLayout(headerPosition: Int): Int
 
     /**
-     * This method gets called by [StickHeaderItemDecoration] to setup the header View.
+     * This method gets called by [StickyHeaderItemDecoration] to setup the header View.
      * @param header View. Header to set the data on.
      * @param headerPosition int. Position of the header item in the adapter.
      */
     fun bindHeaderData(header: View, headerPosition: Int)
 
     /**
-     * This method gets called by [StickHeaderItemDecoration] to verify whether the item represents a header.
+     * This method gets called by [StickyHeaderItemDecoration] to verify whether the item represents a header.
      * @param itemPosition int.
      * @return true, if item at the specified adapter's position represents a header.
      */

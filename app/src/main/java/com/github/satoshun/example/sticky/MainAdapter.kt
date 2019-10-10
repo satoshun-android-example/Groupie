@@ -1,7 +1,6 @@
 package com.github.satoshun.example.sticky
 
 import android.view.View
-import android.widget.TextView
 import com.github.satoshun.example.R
 import com.github.satoshun.example.databinding.HeaderItemBinding
 import com.github.satoshun.example.databinding.MainItemBinding
@@ -10,7 +9,7 @@ import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.databinding.BindableItem
 
 class MainAdapter : GroupAdapter<GroupieViewHolder>(),
-  StickHeaderItemDecoration.StickyHeaderInterface {
+  StickyHeaderItemDecoration.StickyHeaderInterface {
   init {
     update(
       (0 until 100).map {
