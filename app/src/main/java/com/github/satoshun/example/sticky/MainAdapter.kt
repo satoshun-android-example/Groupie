@@ -13,7 +13,7 @@ class MainAdapter : GroupAdapter<GroupieViewHolder>(),
   StickHeaderItemDecoration.StickyHeaderInterface {
   init {
     update(
-      (0..100).map {
+      (0 until 100).map {
         if (it % 10 == 0) HeaderItem()
         else MainItem()
       }
@@ -22,14 +22,14 @@ class MainAdapter : GroupAdapter<GroupieViewHolder>(),
 
   override fun getHeaderPositionForItem(itemPosition: Int): Int =
     (itemPosition downTo 0)
-      .firstOrNull { getItem(it) is HeaderItem } ?: -1
+      .firstOrNull { isHeader(it) } ?: -1
 
   override fun getHeaderLayout(headerPosition: Int): Int {
     return R.layout.header_item
   }
 
   override fun bindHeaderData(header: View, headerPosition: Int) {
-    header.findViewById<TextView>(R.id.title).text = headerPosition.toString()
+    HeaderItem.bindHeader(HeaderItemBinding.bind(header), headerPosition)
   }
 
   override fun isHeader(itemPosition: Int): Boolean {
@@ -48,6 +48,12 @@ class HeaderItem : BindableItem<HeaderItemBinding>() {
   override fun getLayout(): Int = R.layout.header_item
 
   override fun bind(viewBinding: HeaderItemBinding, position: Int) {
-    viewBinding.title.text = position.toString()
+    bindHeader(viewBinding, position)
+  }
+
+  companion object {
+    fun bindHeader(binding: HeaderItemBinding, data: Int) {
+      binding.title.text = data.toString()
+    }
   }
 }
