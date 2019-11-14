@@ -1,13 +1,14 @@
 package com.github.satoshun.example.builder
 
 import androidx.annotation.LayoutRes
+import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.Group
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 
-fun groupieAdapter(body: BuilderGroupAdapter.() -> Unit): BuilderGroupAdapter =
-  BuilderGroupAdapter().apply(body)
+fun groupieAdapter(block: BuilderGroupAdapter.() -> Unit): BuilderGroupAdapter =
+  BuilderGroupAdapter().apply(block)
 
 class BuilderGroupAdapter : GroupAdapter<GroupieViewHolder>() {
   operator fun Group.unaryPlus() {
@@ -18,7 +19,14 @@ class BuilderGroupAdapter : GroupAdapter<GroupieViewHolder>() {
     @LayoutRes layoutRes: Int,
     bind: GroupieViewHolder.(Int) -> Unit
   ) {
-    BuilderItem(layoutRes, bind)
+    add(BuilderItem(layoutRes, bind))
+  }
+
+  fun expandable(
+    expandableItem: Group,
+    block: ExpandableGroup.() -> Unit
+  ) {
+    add(ExpandableGroup(expandableItem).apply(block))
   }
 }
 
