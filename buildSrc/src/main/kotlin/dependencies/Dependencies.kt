@@ -7,7 +7,7 @@ const val TARGET_SDK = 29
 private const val VKOTLIN = "1.3.50"
 private const val VNAVIGATION = "1.0.0"
 
-const val ANDROID_PLUGIN = "com.android.tools.build:gradle:3.5.2"
+const val ANDROID_PLUGIN = "com.android.tools.build:gradle:3.6.0-beta03"
 const val KOTLIN_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VKOTLIN"
 const val SAFEARGS_PLUGIN = "android.arch.navigation:navigation-safe-args-gradle-plugin:$VNAVIGATION"
 const val VERSIONS_PLUGIN = "com.github.ben-manes:gradle-versions-plugin:0.20.0"
@@ -23,7 +23,7 @@ const val FRAGMENTX = "androidx.fragment:fragment-ktx:1.1.0"
 
 const val APPCOMPAT = "androidx.appcompat:appcompat:1.1.0"
 const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0-beta04"
-const val CONSTRAINTLAYOUT = "androidx.constraintlayout:constraintlayout:2.0.0-alpha4"
+const val CONSTRAINTLAYOUT = "androidx.constraintlayout:constraintlayout:2.0.0-beta3"
 const val CARDVIEW = "androidx.cardview:cardview:1.0.0"
 
 const val CONTENTPAGER = "androidx.contentpager:contentpager:1.0.0-rc01"
