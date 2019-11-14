@@ -49,6 +49,11 @@ dependencies {
   implementation GROUPIE
   implementation GROUPIE_DATABINDING
 
+  implementation COROUTINE
+  implementation UI_COROUTINE
+
+  implementation LIFECYCLE_RUNTIME
+
   testImplementation JUNIT
 
   androidTestImplementation TEST_RUNNER

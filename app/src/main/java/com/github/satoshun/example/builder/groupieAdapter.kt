@@ -21,6 +21,12 @@ private val ID_COUNTER = AtomicLong(0)
 class BuilderGroupAdapter : GroupAdapter<GroupieViewHolder>() {
   private var items: MutableList<Group> = mutableListOf()
 
+  fun update(block: BuilderGroupAdapter.() -> Unit): BuilderGroupAdapter =
+    BuilderGroupAdapter().apply {
+      block()
+      updateAll()
+    }
+
   operator fun Group.unaryPlus() {
     items.plusAssign(this)
   }
@@ -57,7 +63,7 @@ class BuilderGroupAdapter : GroupAdapter<GroupieViewHolder>() {
     items.clear()
   }
 
-  internal fun updateAll() {
+  private fun updateAll() {
     update(items)
     items.clear()
   }

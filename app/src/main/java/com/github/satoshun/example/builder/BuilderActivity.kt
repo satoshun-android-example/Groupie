@@ -2,11 +2,14 @@ package com.github.satoshun.example.builder
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.satoshun.example.R
 import com.github.satoshun.example.databinding.BuilderActBinding
-import com.github.satoshun.example.databinding.SampleItemBinding
 import com.github.satoshun.example.databinding.SampleItem2Binding
+import com.github.satoshun.example.databinding.SampleItemBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class BuilderActivity : AppCompatActivity() {
   private lateinit var binding: BuilderActBinding
@@ -17,7 +20,7 @@ class BuilderActivity : AppCompatActivity() {
     setContentView(binding.root)
 
     binding.recycler.layoutManager = LinearLayoutManager(this)
-    binding.recycler.adapter = groupieAdapter {
+    val block: BuilderGroupAdapter.() -> Unit = {
       item(R.layout.sample_item) {
         val binding = SampleItemBinding.bind(this)
         binding.title.text = "HOGE"
@@ -47,6 +50,14 @@ class BuilderActivity : AppCompatActivity() {
             binding.title.text = "CHILD2"
           }
         })
+    }
+    val adapter = groupieAdapter(block)
+
+    binding.recycler.adapter = adapter
+
+    lifecycleScope.launch {
+      delay(3000)
+      adapter.update(block)
     }
   }
 }
