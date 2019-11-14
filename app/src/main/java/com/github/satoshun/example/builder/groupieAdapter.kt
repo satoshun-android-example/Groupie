@@ -8,20 +8,32 @@ import com.xwray.groupie.Group
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
+import java.util.concurrent.atomic.AtomicLong
 
 fun groupieAdapter(block: BuilderGroupAdapter.() -> Unit): BuilderGroupAdapter =
   BuilderGroupAdapter().apply(block)
 
+private val ID_COUNTER = AtomicLong(0)
+
 class BuilderGroupAdapter : GroupAdapter<GroupieViewHolder>() {
+
   operator fun Group.unaryPlus() {
     add(this)
   }
 
   fun item(
     @LayoutRes layoutRes: Int,
+    data: Any? = null,
     block: View.(Int) -> Unit
   ) {
-    add(BuilderItem(layoutRes, block))
+    add(
+      BuilderItem(
+        data?.hashCode()?.toLong() ?: ID_COUNTER.decrementAndGet(),
+        layoutRes,
+        data,
+        block
+      )
+    )
   }
 
   fun expandable(
@@ -36,9 +48,17 @@ class BuilderGroupAdapter : GroupAdapter<GroupieViewHolder>() {
 class BuilderExpandableGroup(group: Group) : ExpandableGroup(group) {
   fun item(
     @LayoutRes layoutRes: Int,
+    data: Any? = null,
     block: View.(Int) -> Unit
   ) {
-    add(BuilderItem(layoutRes, block))
+    add(
+      BuilderItem(
+        data?.hashCode()?.toLong() ?: ID_COUNTER.decrementAndGet(),
+        layoutRes,
+        data,
+        block
+      )
+    )
   }
 
   fun expandable(
@@ -50,10 +70,12 @@ class BuilderExpandableGroup(group: Group) : ExpandableGroup(group) {
   }
 }
 
-class BuilderItem(
+data class BuilderItem(
+  private val _id: Long,
   @LayoutRes private val layoutRes: Int,
+  private val any: Any?,
   private val block: View.(Int) -> Unit
-) : Item<GroupieViewHolder>() {
+) : Item<GroupieViewHolder>(_id) {
   override fun getLayout(): Int = layoutRes
 
   override fun bind(viewHolder: GroupieViewHolder, position: Int) {
