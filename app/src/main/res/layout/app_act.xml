@@ -14,4 +14,11 @@
     android:layout_height="wrap_content"
     android:text="sticky"
     tools:ignore="HardcodedText" />
+
+  <Button
+    android:id="@+id/builder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="builder"
+    tools:ignore="HardcodedText" />
 </LinearLayout>
