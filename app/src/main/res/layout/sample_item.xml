@@ -9,5 +9,4 @@
   android:padding="8dp"
   android:paddingStart="32dp"
   android:paddingEnd="32dp"
-  android:textColor="@android:color/white"
   tools:text="HOGE" />

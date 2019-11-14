@@ -1,5 +1,6 @@
 package com.github.satoshun.example.builder
 
+import android.view.View
 import androidx.annotation.LayoutRes
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.Group
@@ -17,26 +18,44 @@ class BuilderGroupAdapter : GroupAdapter<GroupieViewHolder>() {
 
   fun item(
     @LayoutRes layoutRes: Int,
-    bind: GroupieViewHolder.(Int) -> Unit
+    block: View.(Int) -> Unit
   ) {
-    add(BuilderItem(layoutRes, bind))
+    add(BuilderItem(layoutRes, block))
   }
 
   fun expandable(
-    expandableItem: Group,
-    block: ExpandableGroup.() -> Unit
+    @LayoutRes layoutRes: Int,
+    block: View.(Int) -> Unit,
+    expandableBlock: BuilderExpandableGroup.() -> Unit
   ) {
-    add(ExpandableGroup(expandableItem).apply(block))
+    add(BuilderExpandableGroup(BuilderItem(layoutRes, block)).apply(expandableBlock))
   }
 }
 
-class BuilderItem<T : GroupieViewHolder>(
+class BuilderExpandableGroup(group: Group) : ExpandableGroup(group) {
+  fun item(
+    @LayoutRes layoutRes: Int,
+    block: View.(Int) -> Unit
+  ) {
+    add(BuilderItem(layoutRes, block))
+  }
+
+  fun expandable(
+    @LayoutRes layoutRes: Int,
+    block: View.(Int) -> Unit,
+    expandableBlock: BuilderExpandableGroup.() -> Unit
+  ) {
+    add(BuilderExpandableGroup(BuilderItem(layoutRes, block)).apply(expandableBlock))
+  }
+}
+
+class BuilderItem(
   @LayoutRes private val layoutRes: Int,
-  private val bind: T.(Int) -> Unit
-) : Item<T>() {
+  private val block: View.(Int) -> Unit
+) : Item<GroupieViewHolder>() {
   override fun getLayout(): Int = layoutRes
 
-  override fun bind(viewHolder: T, position: Int) {
-    viewHolder.bind(position)
+  override fun bind(viewHolder: GroupieViewHolder, position: Int) {
+    viewHolder.root.block(position)
   }
 }

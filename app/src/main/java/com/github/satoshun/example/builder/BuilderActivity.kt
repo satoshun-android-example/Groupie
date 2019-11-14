@@ -3,20 +3,34 @@ package com.github.satoshun.example.builder
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.github.satoshun.example.R
+import com.github.satoshun.example.databinding.BuilderActBinding
+import com.github.satoshun.example.databinding.SampleItemBinding
 
 class BuilderActivity : AppCompatActivity() {
+  private lateinit var binding: BuilderActBinding
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.builder_act)
+    binding = BuilderActBinding.inflate(layoutInflater)
+    setContentView(binding.root)
 
-    val recycler = findViewById<RecyclerView>(R.id.recycler)
-    recycler.layoutManager = LinearLayoutManager(this)
-
-    recycler.adapter = groupieAdapter {
+    binding.recycler.layoutManager = LinearLayoutManager(this)
+    binding.recycler.adapter = groupieAdapter {
       item(R.layout.sample_item) {
-        itemView.alpha = 0.5f
+        val binding = SampleItemBinding.bind(this)
+        binding.title.text = "HOGE"
+      }
+      expandable(
+        R.layout.sample_item,
+        block = {
+          val binding = SampleItemBinding.bind(this)
+          binding.title.text = "EXPANDABLE"
+        }) {
+        item(R.layout.sample_item) {
+          val binding = SampleItemBinding.bind(this)
+          binding.title.text = "CHILD1"
+        }
       }
     }
   }
