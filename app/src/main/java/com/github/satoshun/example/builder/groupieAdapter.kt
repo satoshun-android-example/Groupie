@@ -27,9 +27,9 @@ class BuilderGroupAdapter : GroupAdapter<GroupieViewHolder>() {
   fun expandable(
     @LayoutRes layoutRes: Int,
     block: View.(Int, ExpandableGroup) -> Unit,
-    expandableBlock: BuilderExpandableGroup.() -> Unit
+    expandedBlock: BuilderExpandableGroup.() -> Unit
   ) {
-    add(BuilderExpandableGroup(ExpandableBuilderItem(layoutRes, block)).apply(expandableBlock))
+    add(BuilderExpandableGroup(ExpandableBuilderItem(layoutRes, block)).apply(expandedBlock))
   }
 }
 
