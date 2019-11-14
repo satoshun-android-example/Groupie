@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.satoshun.example.R
 import com.github.satoshun.example.databinding.BuilderActBinding
 import com.github.satoshun.example.databinding.SampleItemBinding
+import com.github.satoshun.example.databinding.SampleItem2Binding
 
 class BuilderActivity : AppCompatActivity() {
   private lateinit var binding: BuilderActBinding
@@ -19,6 +20,11 @@ class BuilderActivity : AppCompatActivity() {
     binding.recycler.adapter = groupieAdapter {
       item(R.layout.sample_item) {
         val binding = SampleItemBinding.bind(this)
+        binding.title.text = "HOGE"
+      }
+
+      item(R.layout.sample_item2) {
+        val binding = SampleItem2Binding.bind(this)
         binding.title.text = "HOGE"
       }
 
