@@ -23,13 +23,20 @@ class BuilderActivity : AppCompatActivity() {
       }
       expandable(
         R.layout.sample_item,
-        block = {
+        block = { _, toggle ->
           val binding = SampleItemBinding.bind(this)
           binding.title.text = "EXPANDABLE"
+          binding.root.setOnClickListener {
+            toggle.onToggleExpanded()
+          }
         }) {
         item(R.layout.sample_item) {
           val binding = SampleItemBinding.bind(this)
           binding.title.text = "CHILD1"
+        }
+        item(R.layout.sample_item) {
+          val binding = SampleItemBinding.bind(this)
+          binding.title.text = "CHILD2"
         }
       }
     }
