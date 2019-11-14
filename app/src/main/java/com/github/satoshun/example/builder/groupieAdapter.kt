@@ -11,14 +11,18 @@ import com.xwray.groupie.Item
 import java.util.concurrent.atomic.AtomicLong
 
 fun groupieAdapter(block: BuilderGroupAdapter.() -> Unit): BuilderGroupAdapter =
-  BuilderGroupAdapter().apply(block)
+  BuilderGroupAdapter().apply {
+    block()
+    addAll()
+  }
 
 private val ID_COUNTER = AtomicLong(0)
 
 class BuilderGroupAdapter : GroupAdapter<GroupieViewHolder>() {
+  private var items: MutableList<Group> = mutableListOf()
 
   operator fun Group.unaryPlus() {
-    add(this)
+    items.plusAssign(this)
   }
 
   fun item(
@@ -26,7 +30,7 @@ class BuilderGroupAdapter : GroupAdapter<GroupieViewHolder>() {
     data: Any? = null,
     block: View.(Int) -> Unit
   ) {
-    add(
+    items.plusAssign(
       BuilderItem(
         data?.hashCode()?.toLong() ?: ID_COUNTER.decrementAndGet(),
         layoutRes,
@@ -41,7 +45,21 @@ class BuilderGroupAdapter : GroupAdapter<GroupieViewHolder>() {
     block: View.(Int, ExpandableGroup) -> Unit,
     expandedBlock: BuilderExpandableGroup.() -> Unit
   ) {
-    add(BuilderExpandableGroup(ExpandableBuilderItem(layoutRes, block)).apply(expandedBlock))
+    items.plusAssign(
+      BuilderExpandableGroup(ExpandableBuilderItem(layoutRes, block)).apply(
+        expandedBlock
+      )
+    )
+  }
+
+  internal fun addAll() {
+    addAll(items)
+    items.clear()
+  }
+
+  internal fun updateAll() {
+    update(items)
+    items.clear()
   }
 }
 
