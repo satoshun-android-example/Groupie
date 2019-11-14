@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.satoshun.example.R
-import com.xwray.groupie.GroupieViewHolder
-import com.xwray.groupie.Item
 
 class BuilderActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,14 +15,9 @@ class BuilderActivity : AppCompatActivity() {
     recycler.layoutManager = LinearLayoutManager(this)
 
     recycler.adapter = groupieAdapter {
-      +SampleItem()
+      item(R.layout.sample_item) {
+        itemView.alpha = 0.5f
+      }
     }
-  }
-}
-
-class SampleItem : Item<GroupieViewHolder>() {
-  override fun getLayout(): Int = R.layout.header_item
-
-  override fun bind(viewHolder: GroupieViewHolder, position: Int) {
   }
 }
