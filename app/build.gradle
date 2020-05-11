@@ -48,6 +48,7 @@ dependencies {
 
   implementation GROUPIE
   implementation GROUPIE_DATABINDING
+  implementation GROUPIE_VIEWBINDING
 
   implementation COROUTINE
   implementation UI_COROUTINE
